@@ -1,12 +1,12 @@
 package com.example.parallelSystem;
 
-import controllers.SentenceController;
-import exceptions.SynonymPairNotExistException;
+import com.example.parallelSystem.controllers.SentenceController;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.annotation.Bean;
-import registry.SynonymPairRegistry;
+import com.example.parallelSystem.registry.SynonymPairRegistry;
 
 import java.util.List;
 import java.util.Map;
@@ -18,10 +18,15 @@ public class ParallelSystemApplication {
 		SpringApplication.run(ParallelSystemApplication.class, args);
 	}
 
+	@Autowired
+	SynonymPairRegistry pairRegistry;
+
+	@Autowired
+	SentenceController sentenceController;
+
 	@Bean
 	public CommandLineRunner demo() {
 		return (args) -> {
-			SynonymPairRegistry pairRegistry = new SynonymPairRegistry();
 			pairRegistry.addSynonymPair("hello", "hey");
 			pairRegistry.addSynonymPair("world", "earth");
 			pairRegistry.addSynonymPair("planet", "earth");
@@ -35,8 +40,7 @@ public class ParallelSystemApplication {
 				}
 			}
 
-			SentenceController sentenceController = new SentenceController();
-			List<String> sentences = sentenceController.getSentences("hello world",pairRegistry);
+			List<String> sentences = sentenceController.getSentences("hello world");
 			System.out.println("Sentence for hello world are");
 			for (int i = 0; i < sentences.size(); i++) {
 				System.out.println(sentences.get(i));
@@ -48,7 +52,7 @@ public class ParallelSystemApplication {
 				System.out.println("Error was there");
 			}
 
-			sentenceController.getSentences("hello world", pairRegistry);
+			sentenceController.getSentences("hello world");
 		};
 	}
 

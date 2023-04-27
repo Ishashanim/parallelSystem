@@ -1,17 +1,22 @@
-package services.ListSentence;
+package com.example.parallelSystem.services.ListSentence;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Qualifier;
+import org.springframework.context.annotation.Primary;
 import org.springframework.stereotype.Service;
-import registry.SynonymPairRegistry;
+import com.example.parallelSystem.registry.SynonymPairRegistry;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
-@Service("BruteForce")
+@Service
+@Qualifier("BruteForceSentenceStrategy")
+@Primary
 public class BruteForceListSentenceStrategy implements ListSentenceStrategy{
 
-//    @Autowired
-//    SynonymPairRegistry synonymPairRegistry;
-    public List<String> getSentences(String sentence, SynonymPairRegistry synonymPairRegistry){
+    @Autowired
+    SynonymPairRegistry synonymPairRegistry;
+    public List<String> getSentences(String sentence){
 
         List<String> sentences = new ArrayList<>();
 
@@ -22,6 +27,9 @@ public class BruteForceListSentenceStrategy implements ListSentenceStrategy{
                 sentences.add(sentence.replaceAll(sentenceWords.get(i),replacements.get(j)));
             }
         }
+        //Sort Lexographically all the sentences
+        Collections.sort(sentences);
+
         return sentences;
     };
 }

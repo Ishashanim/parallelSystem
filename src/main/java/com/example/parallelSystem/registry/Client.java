@@ -1,6 +1,6 @@
-package registry;
+package com.example.parallelSystem.registry;
 
-import exceptions.SynonymPairNotExistException;
+import com.example.parallelSystem.exceptions.SynonymPairNotExistException;
 
 import java.util.List;
 import java.util.Map;

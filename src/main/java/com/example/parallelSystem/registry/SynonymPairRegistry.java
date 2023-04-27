@@ -1,6 +1,6 @@
-package registry;
+package com.example.parallelSystem.registry;
 
-import exceptions.SynonymPairNotExistException;
+import com.example.parallelSystem.exceptions.SynonymPairNotExistException;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
